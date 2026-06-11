@@ -18,6 +18,9 @@
       <div class="ambient-glow glow-1"></div>
       <div class="ambient-glow glow-2"></div>
       
+      <!-- Toast Notification for Achievements -->
+      <div id="toast-container" class="toast-container"></div>
+      
       <!-- Main Application Container -->
       <div class="library-container">
         
@@ -28,7 +31,37 @@
             <h1>ClassicEcho</h1>
           </div>
           <p class="header-tagline">저작권이 만료된 위대한 고전 작가들과 나누는 영적 교감</p>
+          
+          <!-- Ambient Music Player Widget -->
+          <div class="music-player-widget">
+            <button id="btn-play-music" class="btn-player" title="서재 배경 음악 재생">
+              <i class="fa-solid fa-music"></i>
+            </button>
+            <button id="btn-ambient-sound" class="btn-player" title="창밖 빗소리 효과음 켜기">
+              <i class="fa-solid fa-cloud-showers-water"></i>
+            </button>
+            <div class="player-vol-slider-container">
+              <i class="fa-solid fa-volume-low"></i>
+              <input type="range" id="slider-volume" min="0" max="100" value="30" class="slider-vol" />
+            </div>
+            <!-- Audio elements (Streaming Royality Free Classical & Rain Sound) -->
+            <audio id="audio-music" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+            <audio id="audio-rain" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3"></audio>
+          </div>
+
           <div class="header-actions">
+            <!-- Achievements Cabinet Button -->
+            <button id="btn-badge-cabinet" class="btn-icon-text" commandfor="modal-badge-cabinet" command="show-modal">
+              <i class="fa-solid fa-medal"></i>
+              <span>뱃지 진열장</span>
+            </button>
+            
+            <!-- Literary Salon (Debate) Button -->
+            <button id="btn-literary-salon" class="btn-icon-text" commandfor="modal-literary-salon" command="show-modal">
+              <i class="fa-solid fa-comments"></i>
+              <span>문학 살롱 토론</span>
+            </button>
+
             <button id="btn-library-info" class="btn-icon-text" commandfor="modal-library-info" command="show-modal">
               <i class="fa-solid fa-circle-info"></i>
               <span>서재 안내</span>
@@ -69,9 +102,18 @@
               <!-- Dynamically populated via JS -->
             </div>
 
-            <!-- Chat Input Area -->
+            <!-- Chat Input Area with Mic STT & TTS triggers -->
             <form id="chat-form" class="chat-input-area">
+              <button type="button" id="btn-stt-mic" class="btn-mic" title="음성 인식 질문 시작 (STT)">
+                <i class="fa-solid fa-microphone"></i>
+              </button>
               <input type="text" id="chat-input" placeholder="작가에게 건넬 질문을 입력하세요..." autocomplete="off" required />
+              
+              <!-- Voice Mode Toggle -->
+              <button type="button" id="btn-toggle-tts" class="btn-tts-active" title="작가 목소리 읽어주기 (TTS) 토글">
+                <i class="fa-solid fa-volume-high"></i>
+              </button>
+
               <button type="submit" id="btn-send" class="btn-send">
                 <i class="fa-solid fa-feather-pointed"></i>
               </button>
@@ -105,6 +147,84 @@
           </div>
           <footer class="dialog-footer">
             <button class="btn-primary" commandfor="modal-library-info" command="close">서재로 돌아가기</button>
+          </footer>
+        </div>
+      </dialog>
+
+      <!-- Calligraphy Postcard Generator Modal -->
+      <dialog id="modal-calligraphy-postcard" class="modern-dialog">
+        <div class="dialog-content">
+          <header class="dialog-header">
+            <h3><i class="fa-solid fa-signature"></i> 앤티크 필사 엽서 제작</h3>
+            <button class="btn-close" commandfor="modal-calligraphy-postcard" command="close">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </header>
+          <div class="dialog-body" style="text-align: center; display: flex; flex-direction: column; align-items: center; gap: 15px;">
+            <p style="font-size:0.85rem; color:var(--text-secondary);">선택하신 구절을 양피지 엽서에 깃펜으로 옮겨 적었습니다. 이미지로 소장해 보세요.</p>
+            <!-- Canvas where the card will be drawn -->
+            <canvas id="canvas-postcard" width="500" height="350" class="canvas-preview"></canvas>
+          </div>
+          <footer class="dialog-footer" style="gap: 10px;">
+            <button id="btn-download-postcard" class="btn-primary"><i class="fa-solid fa-download"></i> 엽서 이미지 저장</button>
+            <button class="btn-icon-text" commandfor="modal-calligraphy-postcard" command="close">닫기</button>
+          </footer>
+        </div>
+      </dialog>
+
+      <!-- Achievements Cabinet (Badges Modal) -->
+      <dialog id="modal-badge-cabinet" class="modern-dialog">
+        <div class="dialog-content">
+          <header class="dialog-header">
+            <h3><i class="fa-solid fa-medal"></i> 나의 문학 업적 진열장</h3>
+            <button class="btn-close" commandfor="modal-badge-cabinet" command="close">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </header>
+          <div class="dialog-body">
+            <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:20px;">작가들과 풍성한 대화를 나누며 비밀 퀘스트를 달성하고 고풍스러운 뱃지들을 모아보세요.</p>
+            
+            <div id="badge-grid" class="badge-grid">
+              <!-- Dynamically populated via JS -->
+            </div>
+          </div>
+          <footer class="dialog-footer">
+            <button class="btn-primary" commandfor="modal-badge-cabinet" command="close">진열장 닫기</button>
+          </footer>
+        </div>
+      </dialog>
+
+      <!-- Literary Salon (Debate Modal) -->
+      <dialog id="modal-literary-salon" class="modern-dialog" style="max-width: 650px;">
+        <div class="dialog-content">
+          <header class="dialog-header">
+            <h3><i class="fa-solid fa-comments"></i> 비밀 서재 문학 살롱 (가상 토론)</h3>
+            <button class="btn-close" commandfor="modal-literary-salon" command="close">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </header>
+          <div class="dialog-body" style="display:flex; flex-direction:column; gap:16px;">
+            <p style="font-size:0.85rem; color:var(--text-secondary); margin:0;">작가들이 한자리에 모여 주어진 대주제에 대해 토론을 펼칩니다. 원하는 토론 주제를 선택해 관전해 보세요.</p>
+            
+            <!-- Salon Theme Selection -->
+            <div class="salon-topic-selector">
+              <button class="btn-topic active" data-topic="solitude">💡 인간의 고독과 내면의 알</button>
+              <button class="btn-topic" data-topic="creation">⚡️ 창조의 책임과 인간의 이성</button>
+              <button class="btn-topic" data-topic="love">💖 진정한 사랑과 첫인상의 오만</button>
+            </div>
+            
+            <!-- Debate Arena Window -->
+            <div id="salon-debate-history" class="salon-debate-history">
+              <!-- Dynamic sequence animations will run here -->
+            </div>
+
+            <!-- Debate Controls -->
+            <div class="salon-controls">
+              <button id="btn-start-debate" class="btn-primary" style="width: 100%;"><i class="fa-solid fa-play"></i> 토론 시작하기</button>
+            </div>
+          </div>
+          <footer class="dialog-footer">
+            <button class="btn-icon-text" id="btn-close-salon" commandfor="modal-literary-salon" command="close">살롱 퇴장하기</button>
           </footer>
         </div>
       </dialog>

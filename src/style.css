@@ -166,6 +166,125 @@ input, button, textarea {
   gap: 12px;
 }
 
+/* Music Player Widget */
+.music-player-widget {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-color);
+  padding: 6px 12px;
+  border-radius: 30px;
+  transition: var(--transition-smooth);
+}
+.music-player-widget:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+}
+.btn-player {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: var(--transition-smooth);
+}
+.btn-player:hover {
+  color: var(--color-gold);
+  background: rgba(255, 255, 255, 0.05);
+}
+.btn-player.active {
+  color: var(--color-gold);
+  filter: drop-shadow(0 0 4px var(--color-gold-glow));
+  background: rgba(212, 175, 55, 0.1);
+  animation: pulseGold 2s infinite;
+}
+.player-vol-slider-container {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 5px;
+  color: var(--text-muted);
+}
+.slider-vol {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 60px;
+  height: 3px;
+  border-radius: 2px;
+  background: rgba(255,255,255,0.1);
+  outline: none;
+  transition: var(--transition-smooth);
+}
+.slider-vol::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+.slider-vol::-webkit-slider-thumb:hover {
+  background: var(--color-gold);
+  transform: scale(1.2);
+}
+
+/* Toast Notifications Container */
+.toast-container {
+  position: absolute;
+  top: 90px;
+  right: 40px;
+  z-index: 1100;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  pointer-events: none;
+}
+.toast-item {
+  background: rgba(13, 17, 27, 0.95);
+  border: 1px solid var(--color-gold);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5), var(--shadow-gold);
+  border-radius: 12px;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 280px;
+  max-width: 380px;
+  color: var(--text-primary);
+  pointer-events: auto;
+  animation: toastSlideIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards,
+             toastFadeOut 0.4s ease forwards 4.6s;
+}
+.toast-icon {
+  font-size: 1.4rem;
+  color: var(--color-gold);
+  animation: rotateGlow 1.5s ease;
+}
+.toast-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.toast-title {
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--color-gold);
+}
+.toast-message {
+  font-size: 0.85rem;
+  color: var(--text-primary);
+}
+
 /* Buttons */
 .btn-icon-text {
   background: var(--bg-card);
@@ -313,16 +432,6 @@ input, button, textarea {
   flex-direction: column;
   gap: 15px;
 }
-.active-book-cover {
-  width: 80px;
-  height: 115px;
-  border-radius: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-  overflow: hidden;
-  align-self: center;
-  transition: var(--transition-smooth);
-}
 .active-author-quote {
   font-family: var(--font-serif);
   font-size: 0.82rem;
@@ -405,7 +514,7 @@ input, button, textarea {
 .message-wrapper {
   display: flex;
   gap: 12px;
-  max-width: 80%;
+  max-width: 85%;
   animation: fadeIn 0.4s ease forwards;
 }
 .message-wrapper.user {
@@ -437,6 +546,7 @@ input, button, textarea {
   display: flex;
   flex-direction: column;
   gap: 5px;
+  position: relative;
 }
 .message-sender {
   font-size: 0.75rem;
@@ -471,27 +581,26 @@ input, button, textarea {
   font-family: var(--font-serif);
 }
 
-/* System messages (e.g. initial greeting) */
-.message-wrapper.system {
-  align-self: center;
-  max-width: 100%;
-  margin: 10px 0;
-  animation: fadeIn 0.6s ease forwards;
-}
-.system-bubble {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px dashed var(--border-color);
-  padding: 10px 20px;
-  border-radius: 30px;
-  font-size: 0.82rem;
-  color: var(--text-secondary);
-  text-align: center;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.system-bubble i {
+/* Calligraphy triggering link inside message bubble */
+.btn-postcard-write {
+  background: none;
+  border: none;
   color: var(--color-gold);
+  font-size: 0.76rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 0 0 0;
+  margin-top: 4px;
+  font-family: var(--font-sans);
+  opacity: 0.75;
+  transition: var(--transition-smooth);
+}
+.btn-postcard-write:hover {
+  opacity: 1;
+  text-decoration: underline;
+  color: var(--color-gold-hover);
 }
 
 /* Citation Card within Author responses */
@@ -581,13 +690,13 @@ input, button, textarea {
 .typing-dot:nth-child(2) { animation-delay: 0.2s; }
 .typing-dot:nth-child(3) { animation-delay: 0.4s; }
 
-/* Chat Input Bar */
+/* Chat Input Bar with Microphone & Voice Toggle */
 .chat-input-area {
   padding: 20px 24px;
   background: rgba(7, 9, 14, 0.4);
   border-top: 1px solid var(--border-color);
   display: flex;
-  gap: 15px;
+  gap: 12px;
   align-items: center;
 }
 .chat-input-area input {
@@ -606,6 +715,59 @@ input, button, textarea {
   border-color: var(--color-gold);
   box-shadow: 0 0 10px rgba(212, 175, 55, 0.1);
 }
+
+/* Mic STT & TTS Buttons */
+.btn-mic {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: var(--transition-smooth);
+}
+.btn-mic:hover {
+  color: var(--color-gold);
+  border-color: var(--color-gold);
+  background: var(--bg-card-hover);
+}
+.btn-mic.recording {
+  background: rgba(231, 76, 60, 0.15);
+  border-color: #e74c3c;
+  color: #e74c3c;
+  animation: redPulse 1.2s infinite;
+}
+
+.btn-tts-active {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: var(--transition-smooth);
+}
+.btn-tts-active:hover {
+  color: var(--color-gold);
+  border-color: var(--color-gold);
+}
+.btn-tts-active.enabled {
+  background: rgba(212, 175, 55, 0.1);
+  border-color: var(--color-gold);
+  color: var(--color-gold);
+  filter: drop-shadow(0 0 3px var(--color-gold-glow));
+}
+
 .btn-send {
   width: 50px;
   height: 50px;
@@ -710,11 +872,154 @@ input, button, textarea {
   border-radius: 8px;
   font-weight: 700;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   transition: var(--transition-smooth);
 }
 .btn-primary:hover {
   background: var(--color-gold-hover);
   box-shadow: var(--shadow-gold);
+}
+
+/* Calligraphy Canvas Preview */
+.canvas-preview {
+  background: #f4edd4;
+  border: 1px solid #dcd1af;
+  border-radius: 8px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+  max-width: 100%;
+}
+
+/* Badge Grid (Cabinet) */
+.badge-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 16px;
+  justify-items: center;
+  padding: 10px 0;
+}
+.badge-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+  width: 100px;
+}
+.badge-circle {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 2px solid var(--border-color);
+  background: rgba(255,255,255,0.02);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.8rem;
+  color: var(--text-muted);
+  transition: var(--transition-smooth);
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+  position: relative;
+}
+.badge-item.earned .badge-circle {
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, rgba(212, 175, 55, 0.05) 100%);
+  border-color: var(--color-gold);
+  color: var(--color-gold);
+  filter: drop-shadow(0 0 8px var(--color-gold-glow));
+  box-shadow: inset 0 0 8px var(--color-gold-glow);
+}
+.badge-circle i.fa-lock {
+  font-size: 1rem;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: var(--bg-darker);
+  border: 1px solid var(--border-color);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-muted);
+}
+.badge-item.earned .badge-circle i.fa-lock {
+  display: none;
+}
+.badge-name {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+.badge-item.earned .badge-name {
+  color: var(--color-gold);
+}
+.badge-desc {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  line-height: 1.2;
+}
+
+/* Literary Salon Debate UI */
+.salon-topic-selector {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+}
+.btn-topic {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: var(--transition-smooth);
+}
+.btn-topic:hover {
+  background: var(--bg-card-hover);
+  border-color: rgba(255,255,255,0.15);
+}
+.btn-topic.active {
+  background: rgba(212, 175, 55, 0.08);
+  border-color: var(--color-gold);
+  color: var(--color-gold);
+}
+.salon-debate-history {
+  height: 250px;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  background: rgba(7, 9, 14, 0.4);
+  padding: 16px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.salon-debate-history .debate-bubble {
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  max-width: 85%;
+  animation: fadeIn 0.4s ease forwards;
+}
+.salon-debate-history .debate-bubble.left {
+  align-self: flex-start;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-color);
+  border-top-left-radius: 2px;
+  font-family: var(--font-serif);
+}
+.salon-debate-history .debate-bubble.right {
+  align-self: flex-end;
+  background: rgba(212, 175, 55, 0.05);
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  border-top-right-radius: 2px;
+  font-family: var(--font-serif);
 }
 
 /* Animations */
@@ -734,6 +1039,26 @@ input, button, textarea {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-5px); }
 }
+@keyframes pulseGold {
+  0%, 100% { box-shadow: 0 0 5px rgba(212, 175, 55, 0.1); }
+  50% { box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); }
+}
+@keyframes redPulse {
+  0%, 100% { box-shadow: 0 0 5px rgba(231, 76, 60, 0.2); }
+  50% { box-shadow: 0 0 15px rgba(231, 76, 60, 0.5); }
+}
+@keyframes rotateGlow {
+  0% { transform: scale(0.8) rotate(-15deg); filter: brightness(1.5); }
+  100% { transform: scale(1) rotate(0); }
+}
+@keyframes toastSlideIn {
+  from { transform: translateX(120%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+@keyframes toastFadeOut {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(-30px); opacity: 0; }
+}
 
 /* Responsive Styles */
 @media (max-width: 1024px) {
@@ -745,6 +1070,12 @@ input, button, textarea {
     padding: 0 15px;
   }
   .header-tagline {
+    display: none;
+  }
+  .music-player-widget {
+    padding: 4px 8px;
+  }
+  .player-vol-slider-container {
     display: none;
   }
 }

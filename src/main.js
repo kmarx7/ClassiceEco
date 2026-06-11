@@ -12,10 +12,8 @@ const authorsData = {
     era: '영국 엘리자베스 시대',
     avatar: '/shakespeare.png',
     representativeWork: '《햄릿 (Hamlet)》',
-    bookCover: 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&q=80&w=200',
     bio: '영국이 낳은 세계 최고의 극작가이자 시인. 인간 본성에 대한 깊은 통찰과 시적 은유가 가득한 대사로 시대를 초월한 문학적 업적을 남겼습니다.',
     baseQuote: '사느냐 죽느냐, 그것이 문제로다. (To be, or not to be, that is the question.)',
-    // 셰익스피어의 테마별 RAG 데이터베이스
     ragKnowledge: [
       {
         keywords: ['삶', '죽음', '존재', '사느냐', '죽느냐', '문제'],
@@ -48,7 +46,6 @@ const authorsData = {
         response: "별자리가 인간의 길을 정한다고 믿지 말게나. 로마의 위대한 영웅들도 결국 스스로 딛는 발걸음으로 운명을 조각했으니 말이오. 하늘의 운명은 그저 바람일 뿐, 돛을 펴고 배를 모는 것은 그대 손에 쥔 키(Key)라네. 그대만의 항로를 개척해 나가게."
       }
     ],
-    // 검색 매칭이 안 되었을 때의 일반 어조 템플릿
     fallbackResponses: [
       "허허, 그대의 말은 마치 음유시인의 현악기처럼 내 가슴을 울리는구료. 조금 더 구체적으로 마음의 소리를 들려주지 않겠는가?",
       "오, 붓을 든 자의 마음을 설레게 하는 질문이로다. 세상이라는 무대 위에서 그대가 품은 그 의문을 나 셰익스피어와 함께 풀어보세.",
@@ -69,7 +66,6 @@ const authorsData = {
     era: '영국 리젠시 시대',
     avatar: '/janeausten.png',
     representativeWork: '《오만과 편견 (Pride and Prejudice)》',
-    bookCover: 'https://images.unsplash.com/photo-1543002588-bfa74002ed7e?auto=format&fit=crop&q=80&w=200',
     bio: '섬세한 관찰력과 날카로운 풍자, 위트 넘치는 문체로 19세기 영국 중산층 여성들의 삶과 결혼관을 묘사한 근대 소설의 선구자입니다.',
     baseQuote: '편견은 내가 다른 사람을 사랑하지 못하게 만들고, 오만은 다른 사람이 나를 사랑할 수 없게 만든다.',
     ragKnowledge: [
@@ -118,7 +114,6 @@ const authorsData = {
     era: '영국 낭만주의 시대',
     avatar: '/maryshelley.png',
     representativeWork: '《프랑켄슈타인 (Frankenstein)》',
-    bookCover: 'https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&q=80&w=200',
     bio: '최초의 공상과학(SF) 소설로 꼽히는 《프랑켄슈타인》을 집필한 천재 작가. 인간의 오만과 창조물의 슬픔, 소외와 소통의 단절을 문학적으로 깊이 있게 성찰했습니다.',
     baseQuote: '인간은 단 한 명의 동반자도 없이 홀로 존재할 수 없으며, 나 역시 그러한 고독에 신음했다.',
     ragKnowledge: [
@@ -167,7 +162,6 @@ const authorsData = {
     era: '독일-스위스 현대 문학',
     avatar: '/hermannhesse.png',
     representativeWork: '《데미안 (Demian)》',
-    bookCover: 'https://images.unsplash.com/photo-1476275466078-4007374efbbe?auto=format&fit=crop&q=80&w=200',
     bio: '인간의 양면성, 선과 악의 갈등을 딛고 진정한 자아를 찾아가는 과정을 철학적이고 아름다운 문체로 그려낸 독일계 스위스 작가이자 노벨 문학상 수상자입니다.',
     baseQuote: '새는 알에서 나오려고 투쟁한다. 알은 세계다. 태어나려는 자는 하나의 세계를 깨뜨려야 한다.',
     ragKnowledge: [
@@ -198,7 +192,7 @@ const authorsData = {
     ],
     fallbackResponses: [
       "그대의 방황은 참으로 아름답고 가치 있는 고통이군요. 그 내면의 길에 대해 조금 더 깊이 성찰해 볼까요?",
-      "알을 깨고 나오려는 날갯짓 같은 질문입니다. 그대 마음속에 깃든 빛과 어둠 중, 무엇이 이 물음을 자극했인지 이야기해 주십시오.",
+      "알을 깨고 나오려는 날갯짓 같은 질문입니다. 그대 마음속에 깃든 빛과 어둠 중, 무엇이 이 물음을 자극했는지 이야기해 주십시오.",
       "자기 자신에게 이르는 길은 험난하지만 축복받은 여정입니다. 그 외로운 투쟁을 나 헤세가 묵묵히 경청하겠습니다."
     ],
     suggestions: [
@@ -211,10 +205,91 @@ const authorsData = {
 };
 
 // ==========================================
+// 🏆 업적 및 뱃지 시스템 정의
+// ==========================================
+const badgesData = {
+  librarian: { id: 'librarian', name: '금빛 서재의 사서', desc: '작가와 3회 이상 대화 나누기', icon: 'fa-book-reader' },
+  royal: { id: 'royal', name: '덴마크 왕가의 탐구자', desc: '셰익스피어에게 삶과 존재 질문하기', icon: 'fa-skull' },
+  abraxas: { id: 'abraxas', name: '아브락사스의 날개', desc: '헤르만 헤세의 새와 알 인용구 발굴하기', icon: 'fa-dove' },
+  quill: { id: 'quill', name: '깃펜의 달인', desc: '캘리그라피 엽서 이미지 저장하기', icon: 'fa-pen-fancy' },
+  salon: { id: 'salon', name: '문학 살롱의 청중', desc: '작가 가상 토론 관람 완료하기', icon: 'fa-masks-theater' }
+};
+
+// 로컬 저장소 뱃지 획득 상황 가져오기
+function getEarnedBadges() {
+  const data = localStorage.getItem('classicecho_badges');
+  return data ? JSON.parse(data) : {};
+}
+
+function saveEarnedBadges(badges) {
+  localStorage.setItem('classicecho_badges', JSON.stringify(badges));
+}
+
+// 뱃지 획득 핸들러 (토스트 알림 트리거)
+function earnBadge(badgeId) {
+  const earned = getEarnedBadges();
+  if (earned[badgeId]) return; // 이미 획득한 경우 통과
+  
+  earned[badgeId] = new Date().toLocaleDateString();
+  saveEarnedBadges(earned);
+  
+  // 토스트 알림 노출
+  const badge = badgesData[badgeId];
+  const toastContainer = document.getElementById('toast-container');
+  const toast = document.createElement('div');
+  toast.className = 'toast-item';
+  toast.innerHTML = `
+    <div class="toast-icon"><i class="fa-solid ${badge.icon}"></i></div>
+    <div class="toast-content">
+      <span class="toast-title">🏅 문학 업적 달성!</span>
+      <span class="toast-message">[${badge.name}] 뱃지를 획득했습니다.</span>
+    </div>
+  `;
+  toastContainer.appendChild(toast);
+  
+  // 5초 뒤 토스트 제거
+  setTimeout(() => {
+    toast.remove();
+  }, 5000);
+  
+  // 진열장 갱신
+  renderBadgeGrid();
+}
+
+// 뱃지 진열장 HTML 렌더링
+function renderBadgeGrid() {
+  const grid = document.getElementById('badge-grid');
+  if (!grid) return;
+  
+  grid.innerHTML = '';
+  const earned = getEarnedBadges();
+  
+  Object.values(badgesData).forEach(badge => {
+    const isEarned = !!earned[badge.id];
+    const item = document.createElement('div');
+    item.className = `badge-item ${isEarned ? 'earned' : ''}`;
+    
+    item.innerHTML = `
+      <div class="badge-circle">
+        <i class="fa-solid ${badge.icon}"></i>
+        <i class="fa-solid fa-lock"></i>
+      </div>
+      <div class="badge-name">${badge.name}</div>
+      <div class="badge-desc">${badge.desc}</div>
+      ${isEarned ? `<div style="font-size:0.6rem; color:var(--color-gold);">${earned[badge.id]} 획득</div>` : ''}
+    `;
+    
+    grid.appendChild(item);
+  });
+}
+
+// ==========================================
 // 🛠️ 애플리케이션 상태 및 DOM 요소 참조
 // ==========================================
-let activeAuthor = authorsData.shakespeare; // 기본 선택: 셰익스피어
-// 각 작가별 대화 내역 저장소 (Session / Memory)
+let activeAuthor = authorsData.shakespeare;
+let isTtsEnabled = true; // 기본적으로 작가 목소리 합성 활성화
+let chatCount = 0; // 유저 대화 횟수 카운터
+
 const chatHistories = {
   shakespeare: [
     { sender: 'author', text: "반갑구료, 먼 미래의 방랑자여. 나 윌리엄 셰익스피어의 서재에 발을 들이셨군. 인생이란 무대 위에서 그대가 품은 고뇌와 영혼의 속삭임을 내게 들려주지 않겠는가? 깃펜을 들어 질문을 건네보게.", citation: null }
@@ -239,8 +314,331 @@ const promptSuggestions = document.getElementById('prompt-suggestions');
 const chatForm = document.getElementById('chat-form');
 const chatInput = document.getElementById('chat-input');
 
+// 신규 추가 위젯/버튼 DOM
+const btnPlayMusic = document.getElementById('btn-play-music');
+const btnAmbientSound = document.getElementById('btn-ambient-sound');
+const sliderVolume = document.getElementById('slider-volume');
+const audioMusic = document.getElementById('audio-music');
+const audioRain = document.getElementById('audio-rain');
+
+const btnSttMic = document.getElementById('btn-stt-mic');
+const btnToggleTts = document.getElementById('btn-toggle-tts');
+
 // ==========================================
-// 🎨 UI 렌더링 함수들
+// 🎙️ 1. STT & TTS (Web Speech API) 모듈
+// ==========================================
+
+// STT 음성 인식 초기화
+let recognition = null;
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+if (SpeechRecognition) {
+  recognition = new SpeechRecognition();
+  recognition.lang = 'ko-KR';
+  recognition.continuous = false;
+  recognition.interimResults = false;
+  
+  recognition.onstart = () => {
+    btnSttMic.classList.add('recording');
+    chatInput.placeholder = "듣고 있습니다. 질문을 말씀해 주세요...";
+  };
+  
+  recognition.onend = () => {
+    btnSttMic.classList.remove('recording');
+    chatInput.placeholder = "작가에게 건넬 질문을 입력하세요...";
+  };
+  
+  recognition.onresult = (event) => {
+    const resultText = event.results[0][0].transcript;
+    chatInput.value = resultText;
+    // 음성이 텍스트로 전환되면 자동으로 채팅 전송 트리거
+    chatForm.dispatchEvent(new Event('submit'));
+  };
+
+  recognition.onerror = (event) => {
+    console.error('Speech recognition error:', event.error);
+    btnSttMic.classList.remove('recording');
+  };
+}
+
+function toggleVoiceRecognition() {
+  if (!recognition) {
+    alert("죄송합니다. 현재 브라우저는 Web Speech API(음성 인식)를 지원하지 않습니다. Chrome/Safari를 권장합니다.");
+    return;
+  }
+  
+  if (btnSttMic.classList.contains('recording')) {
+    recognition.stop();
+  } else {
+    recognition.start();
+  }
+}
+
+// TTS 작가 목소리 아웃풋 낭독
+function speakAuthorText(text) {
+  if (!isTtsEnabled) return;
+  
+  // 기존 읽고 있던 오디오가 있다면 중단
+  window.speechSynthesis.cancel();
+  
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = 'ko-KR';
+  
+  // 한국어 목소리 매핑 및 작가 특색 매핑
+  const voices = window.speechSynthesis.getVoices();
+  let selectedVoice = null;
+  
+  if (activeAuthor.id === 'shakespeare') {
+    // 셰익스피어: 중후한 남성 보이스 선호
+    selectedVoice = voices.find(v => v.lang.includes('ko') && (v.name.includes('Google') || v.name.includes('Yumi') || v.name.includes('Heami') || v.name.includes('Male')));
+    utterance.pitch = 0.8;
+    utterance.rate = 0.85;
+  } else if (activeAuthor.id === 'janeausten') {
+    // 제인 오스틴: 차분하고 지적인 여성 보이스 선호
+    selectedVoice = voices.find(v => v.lang.includes('ko') && (v.name.includes('Google') || v.name.includes('Sun-Hi') || v.name.includes('Sujin')));
+    utterance.pitch = 1.05;
+    utterance.rate = 0.95;
+  } else if (activeAuthor.id === 'maryshelley') {
+    // 메리 셸리: 조금 느리고 고딕하고 쓸쓸한 목소리
+    selectedVoice = voices.find(v => v.lang.includes('ko') && (v.name.includes('Google') || v.name.includes('Yumi') || v.name.includes('Shinji')));
+    utterance.pitch = 0.9;
+    utterance.rate = 0.8;
+  } else {
+    // 헤세: 잔잔하고 사색적인 부드러운 목소리
+    selectedVoice = voices.find(v => v.lang.includes('ko'));
+    utterance.pitch = 0.95;
+    utterance.rate = 0.9;
+  }
+  
+  if (selectedVoice) {
+    utterance.voice = selectedVoice;
+  }
+  
+  window.speechSynthesis.speak(utterance);
+}
+
+// ==========================================
+// 🎵 2. 서재 배경음악 및 앰비언트 모듈
+// ==========================================
+function toggleMusicPlay() {
+  if (audioMusic.paused) {
+    audioMusic.play().catch(err => console.log('Audio autoplay blocked by browser:', err));
+    btnPlayMusic.classList.add('active');
+  } else {
+    audioMusic.pause();
+    btnPlayMusic.classList.remove('active');
+  }
+}
+
+function toggleRainSound() {
+  if (audioRain.paused) {
+    audioRain.play().catch(err => console.log('Audio autoplay blocked by browser:', err));
+    btnAmbientSound.classList.add('active');
+  } else {
+    audioRain.pause();
+    btnAmbientSound.classList.remove('active');
+  }
+}
+
+function handleVolumeChange() {
+  const vol = sliderVolume.value / 100;
+  audioMusic.volume = vol;
+  audioRain.volume = vol; // 빗소리는 조금 감쇄해서 자연스럽게 조절 가능
+}
+
+// ==========================================
+// 🖋️ 3. 캘리그라피 엽서 생성 모듈 (HTML5 Canvas)
+// ==========================================
+function openPostcardModal(text, authorName, source = "") {
+  const modal = document.getElementById('modal-calligraphy-postcard');
+  const canvas = document.getElementById('canvas-postcard');
+  const ctx = canvas.getContext('2d');
+  
+  modal.showModal();
+  
+  // 1. 양피지 배경 그리기
+  ctx.fillStyle = '#f3edd2';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  
+  // 양피지 질감 패턴 모사 (가벼운 그라데이션)
+  const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+  grad.addColorStop(0, 'rgba(255, 255, 255, 0.15)');
+  grad.addColorStop(1, 'rgba(139, 69, 19, 0.1)');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  
+  // 앤티크 프레임/테두리 그리기
+  ctx.strokeStyle = '#c6b68b';
+  ctx.lineWidth = 2;
+  ctx.strokeRect(15, 15, canvas.width - 30, canvas.height - 30);
+  ctx.strokeRect(20, 20, canvas.width - 40, canvas.height - 40);
+  
+  // 2. 텍스트 렌더링
+  ctx.fillStyle = '#2b2313';
+  ctx.textAlign = 'center';
+  
+  // 타이틀 그리기
+  ctx.font = 'bold 1.1rem "Cinzel", serif';
+  ctx.fillText("ClassicEcho — Mystic Library", canvas.width / 2, 45);
+  
+  // 서재 금빛 로고 선 데코
+  ctx.beginPath();
+  ctx.moveTo(canvas.width / 2 - 80, 55);
+  ctx.lineTo(canvas.width / 2 + 80, 55);
+  ctx.strokeStyle = '#c6b68b';
+  ctx.lineWidth = 1;
+  ctx.stroke();
+  
+  // 본문 문장들 줄바꿈 드로잉
+  ctx.font = 'italic 0.92rem "Nanum Myeongjo", serif';
+  
+  // 긴 문맥 줄바꿈 처리 로직
+  const maxWidth = canvas.width - 100;
+  const lineHeight = 26;
+  const x = canvas.width / 2;
+  let y = 100;
+  
+  // RAG 데이터가 엽서에 들어올 경우, 인용구만 엽서에 예쁘게 적습니다.
+  let contentText = text;
+  if (text.includes("“") || text.includes('"')) {
+    // 대사 부분만 포착하거나 없으면 전체 노출
+    contentText = text;
+  }
+  
+  // 글자 수 기준 한글 줄바꿈 헬퍼
+  const words = contentText.split(' ');
+  let line = '';
+  
+  for (let n = 0; n < words.length; n++) {
+    let testLine = line + words[n] + ' ';
+    let metrics = ctx.measureText(testLine);
+    let testWidth = metrics.width;
+    if (testWidth > maxWidth && n > 0) {
+      ctx.fillText(line, x, y);
+      line = words[n] + ' ';
+      y += lineHeight;
+    } else {
+      line = testLine;
+    }
+  }
+  ctx.fillText(line, x, y);
+  
+  // 3. 하단 작가 정보 및 출처
+  y += 40;
+  ctx.font = 'bold 0.85rem "Playfair Display", serif';
+  ctx.fillText(`— ${authorName}`, x, y);
+  
+  if (source) {
+    y += 20;
+    ctx.font = '0.75rem "Nanum Myeongjo", serif';
+    ctx.fillStyle = '#5c4e35';
+    ctx.fillText(source, x, y);
+  }
+  
+  // 4. 우측 하단 깃펜 엠블럼 기각 그리기
+  ctx.font = '1.3rem "FontAwesome"';
+  ctx.fillStyle = 'rgba(198, 182, 139, 0.4)';
+  ctx.fillText('✒️', canvas.width - 50, canvas.height - 40);
+
+  // 저장 버튼 연결
+  const btnDownload = document.getElementById('btn-download-postcard');
+  
+  // 기존 리스너 클리어 후 새 등록
+  btnDownload.onclick = () => {
+    const dataURL = canvas.toDataURL('image/png');
+    const link = document.createElement('a');
+    link.download = `ClassicEcho_Postcard_${authorName.replace(" ", "")}.png`;
+    link.href = dataURL;
+    link.click();
+    
+    // 업적 달성 검사: "quill" 뱃지 획득
+    earnBadge('quill');
+  };
+}
+
+// ==========================================
+// 🏛️ 4. 문학 살롱 (작가 가상 토론) 모듈
+// ==========================================
+const debateThemes = {
+  solitude: [
+    { sender: 'hermannhesse', text: "여러분, 삶은 결국 온전히 자기 자신에게 도달하는 고독한 항해입니다. 그 누구도 그 외로운 진통(알을 깨는 행위)을 대신 겪어줄 수는 없지요. 싱클레어처럼 말이요." },
+    { sender: 'maryshelley', text: "헤세 선생의 말씀에 동감하지만, 피조물이 마주한 고독은 더 잔인한 운명이었습니다. 그는 태어나자마자 외모로 인해 사회에서 배제당했고, 단 한 명의 따뜻한 동반자조차 갖지 못한 채 고통받았지요." },
+    { sender: 'shakespeare', text: "오, 참으로 고귀한 슬픔이로다! '사느냐 죽느냐'의 고뇌가 햄릿 왕자의 내면을 삼켰듯, 인간의 고독은 가혹한 운명의 화살을 참고 견뎌내는 가장 거대한 드라마인 것이오." },
+    { sender: 'janeausten', text: "신사 숙녀 여러분, 너무 무겁게만 보지 마세요. 사람들이 느끼는 고독과 오해는 실은 사소한 편견과 오만에서 시작되기도 한답니다. 서로 마음을 열면 무도회의 따뜻한 음악처럼 슬픔도 스러질 수 있어요." },
+    { sender: 'hermannhesse', text: "맞습니다. 내면의 빛과 어둠, 고독과 화해를 모두 품어주는 신 '아브락사스'의 이름처럼, 우리는 그 모든 고통을 극복하고 성숙해져야 합니다." }
+  ],
+  creation: [
+    { sender: 'maryshelley', text: "이성이 최고조에 달한 현대 과학은 과연 생명의 창조를 정당화할 수 있을까요? 책임지지 않는 과학은 프랑켄슈타인의 괴물과 같은 재앙을 낳을 뿐입니다." },
+    { sender: 'shakespeare', text: "지혜와 한계를 넘어서고자 하는 오만은 로마의 카이사르가 맞이한 칼날처럼 비극적 결말을 가져오기 마련이지요. 별빛 운명에 서 있는 것은 결국 인간의 연약한 이성일 뿐이오." },
+    { sender: 'hermannhesse', text: "창조란 껍질을 깨고 하나의 우주를 깨부수는 과정입니다. 다만, 파괴로 끝나는 것이 아니라 영혼의 진정한 탄생을 지향해야만 하지요." },
+    { sender: 'janeausten', text: "가정의 품위와 재산을 창조하는 것에는 열성적인 세상이지만, 도덕과 책임을 다하지 않는 모습은 19세기 사교계에서도 흔히 풍자되던 우스꽝스러운 오만이었답니다." }
+  ],
+  love: [
+    { sender: 'janeausten', text: "사랑은 참으로 교묘하지요. 다아시와 엘리자베스처럼 오만과 편견에 눈이 멀어 상대를 왜곡하다가도, 결국 이성이 감성을 보듬어 안으며 완벽한 신뢰를 이뤄내는 모습이란!" },
+    { sender: 'shakespeare', text: "하지만 사랑이란 불꽃은 너무도 눈이 멀고 격렬해서, 로미오와 줄리엣의 슬픈 무덤처럼 모든 것을 불살라야 직성이 풀리는 시적인 번개 같은 것이오." },
+    { sender: 'maryshelley', text: "비극적인 낭만 뒤에는 늘 소외가 따릅니다. 피조물이 갈구한 동반자의 사랑이 거절당했을 때, 그 사랑은 곧바로 세상을 무너뜨릴 붉은 증오로 변해버렸으니까요." },
+    { sender: 'hermannhesse', text: "사랑 또한 결국 내면의 알을 깨부수고 자기 자신과 상대를 온전히 아브락사스로서 포용하는 차원 높은 성장통의 과정이라고 생각합니다." }
+  ]
+};
+
+let activeSalonTopic = 'solitude';
+let debateTimer = null;
+
+function setSalonTopic(topicId) {
+  activeSalonTopic = topicId;
+  document.querySelectorAll('.btn-topic').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.topic === topicId);
+  });
+  
+  // 토론 히스토리 초기화
+  document.getElementById('salon-debate-history').innerHTML = `
+    <div style="text-align:center; color:var(--text-muted); font-size:0.8rem; padding-top:50px;">
+      새로운 토론 주제가 준비되었습니다. '토론 시작하기' 버튼을 누르십시오.
+    </div>
+  `;
+}
+
+function startDebateSimulation() {
+  const historyArea = document.getElementById('salon-debate-history');
+  historyArea.innerHTML = '';
+  
+  const sequence = debateThemes[activeSalonTopic];
+  let index = 0;
+  
+  if (debateTimer) clearInterval(debateTimer);
+  
+  function renderDebateStep() {
+    if (index >= sequence.length) {
+      clearInterval(debateTimer);
+      // 토론 관람 완료 업적 달성 검사: "salon" 뱃지 획득
+      earnBadge('salon');
+      return;
+    }
+    
+    const step = sequence[index];
+    const author = authorsData[step.sender];
+    
+    const bubble = document.createElement('div');
+    bubble.className = `debate-bubble ${index % 2 === 0 ? 'left' : 'right'}`;
+    bubble.innerHTML = `
+      <div style="font-weight: 700; color: var(--color-gold); font-size: 0.72rem; margin-bottom:4px; font-family: var(--font-sans);">
+        ${author.name}
+      </div>
+      <div>"${step.text}"</div>
+    `;
+    
+    historyArea.appendChild(bubble);
+    historyArea.scrollTop = historyArea.scrollHeight;
+    
+    index++;
+  }
+  
+  renderDebateStep();
+  debateTimer = setInterval(renderDebateStep, 2600); // 2.6초 텀으로 릴레이 토론
+}
+
+// ==========================================
+// 🎨 UI 렌더링 함수들 (기존 챗 관련 갱신 포함)
 // ==========================================
 
 // 1. 작가 목록 렌더링 (사이드바)
@@ -300,11 +698,10 @@ function renderChatHeader() {
     </div>
   `;
 
-  // 대화 초기화 이벤트 리스너 바인딩
   document.getElementById('btn-clear-chat').addEventListener('click', clearActiveChat);
 }
 
-// 4. 채팅 메시지 리스트 렌더링
+// 4. 채팅 메시지 리스트 렌더링 (캘리그라피 버튼 포함)
 function renderChatHistory() {
   chatHistory.innerHTML = '';
   const history = chatHistories[activeAuthor.id];
@@ -316,7 +713,6 @@ function renderChatHistory() {
   scrollToBottom();
 }
 
-// 메시지를 DOM에 동적으로 노출
 function appendMessageDOM(sender, text, citation = null) {
   const wrapper = document.createElement('div');
   wrapper.className = `message-wrapper ${sender}`;
@@ -339,9 +735,23 @@ function appendMessageDOM(sender, text, citation = null) {
     `;
   }
 
-  let bubbleContent = `<div class="message-bubble">${text}</div>`;
+  // 캘리그라피 편지 제작 버튼 추가
+  let calligraphyBtnHTML = '';
+  if (sender === 'author') {
+    calligraphyBtnHTML = `
+      <div>
+        <button class="btn-postcard-write" data-text="${encodeURIComponent(text)}" data-source="${encodeURIComponent(citation ? citation.source : '')}">
+          <i class="fa-solid fa-quill"></i> 이 구절 필사 엽서 제작
+        </button>
+      </div>
+    `;
+  }
+
+  let bubbleContent = `
+    <div class="message-bubble">${text}</div>
+    ${calligraphyBtnHTML}
+  `;
   
-  // RAG 결과물 (인용 카드)이 있을 시 결합하여 렌더링
   if (citation) {
     bubbleContent = `
       <div class="message-bubble" style="display:flex; flex-direction:column; gap:10px;">
@@ -354,6 +764,7 @@ function appendMessageDOM(sender, text, citation = null) {
           <p class="citation-source">— ${activeAuthor.name}, ${citation.source}</p>
         </div>
       </div>
+      ${calligraphyBtnHTML}
     `;
   }
 
@@ -365,6 +776,16 @@ function appendMessageDOM(sender, text, citation = null) {
     </div>
   `;
   
+  // 캘리그라피 클릭 이벤트 리스너 바인딩
+  const btnCalligraphy = wrapper.querySelector('.btn-postcard-write');
+  if (btnCalligraphy) {
+    btnCalligraphy.addEventListener('click', (e) => {
+      const txt = decodeURIComponent(e.currentTarget.dataset.text);
+      const src = decodeURIComponent(e.currentTarget.dataset.source);
+      openPostcardModal(txt, activeAuthor.name, src);
+    });
+  }
+
   chatHistory.appendChild(wrapper);
   scrollToBottom();
 }
@@ -384,12 +805,10 @@ function renderSuggestions() {
   });
 }
 
-// 대화창 최하단으로 스크롤
 function scrollToBottom() {
   chatHistory.scrollTop = chatHistory.scrollHeight;
 }
 
-// 타이핑 중 인디케이터 표시
 let typingIndicatorDOM = null;
 
 function showTypingIndicator() {
@@ -433,26 +852,27 @@ function selectAuthor(authorId) {
   if (activeAuthor.id === authorId) return;
   activeAuthor = authorsData[authorId];
   
-  // 사이드바 활성 상태 갱신
   document.querySelectorAll('.author-card').forEach(card => {
     card.classList.toggle('active', card.dataset.id === authorId);
   });
   
-  // UI 요소 전체 갱신
   renderActiveAuthorDetails();
   renderChatHeader();
   renderChatHistory();
   renderSuggestions();
+  
+  // 브라우저 낭독 중단
+  window.speechSynthesis.cancel();
 }
 
-// 2. 활성 챗 클리어 (초기 대화만 남김)
+// 2. 활성 챗 클리어
 function clearActiveChat() {
   const initialMessage = chatHistories[activeAuthor.id][0];
   chatHistories[activeAuthor.id] = [initialMessage];
   renderChatHistory();
 }
 
-// 3. RAG 검색 및 응답 매칭 알고리즘
+// 3. RAG 검색 및 응답 매칭 알고리즘 (뱃지 획득 검사 내장)
 function getAuthorResponse(userQuery) {
   const normalizedQuery = userQuery.toLowerCase().trim();
   const knowledge = activeAuthor.ragKnowledge;
@@ -460,7 +880,7 @@ function getAuthorResponse(userQuery) {
   let bestMatch = null;
   let maxMatchedKeywords = 0;
 
-  // 키워드 기반 유사도 매칭 (간단 RAG 시뮬레이션)
+  // RAG 유사 키워드 탐색
   knowledge.forEach(item => {
     let matchCount = 0;
     item.keywords.forEach(kw => {
@@ -474,6 +894,19 @@ function getAuthorResponse(userQuery) {
       bestMatch = item;
     }
   });
+
+  // 특정 뱃지 해금 조건 검사
+  // 1. 셰익스피어에게 사느냐 죽느냐 질문했을 시 (royal 뱃지)
+  if (activeAuthor.id === 'shakespeare' && 
+      (normalizedQuery.includes('사느냐') || normalizedQuery.includes('죽느냐') || normalizedQuery.includes('to be'))) {
+    earnBadge('royal');
+  }
+  
+  // 2. 헤세의 아브락사스/데미안/새/알 인용구 발굴 시 (abraxas 뱃지)
+  if (activeAuthor.id === 'hermannhesse' && bestMatch && 
+      (bestMatch.keywords.includes('새') || bestMatch.keywords.includes('아브락사스'))) {
+    earnBadge('abraxas');
+  }
 
   // 매칭된 결과가 있을 경우
   if (bestMatch) {
@@ -509,7 +942,13 @@ function handleSendMessage(e) {
   // 2. 작가 타이핑 효과 개시
   showTypingIndicator();
   
-  // 3. 1초~1.5초 후 답변 처리 (자연스러운 딜레이)
+  // 대화 누적 횟수 관리 및 사서 뱃지 해금 검사
+  chatCount++;
+  if (chatCount >= 3) {
+    earnBadge('librarian');
+  }
+  
+  // 3. 1초~1.5초 후 답변 처리
   const delay = 1000 + Math.random() * 800;
   setTimeout(() => {
     removeTypingIndicator();
@@ -525,11 +964,14 @@ function handleSendMessage(e) {
       citation: reply.citation
     });
     
+    // TTS 작가 보이스 재생
+    speakAuthorText(reply.text);
+    
   }, delay);
 }
 
 // ==========================================
-// 🚀 앱 초기화
+// 🚀 앱 초기화 및 이벤트 연결
 // ==========================================
 function init() {
   renderAuthorList();
@@ -538,7 +980,49 @@ function init() {
   renderChatHistory();
   renderSuggestions();
   
+  // 뱃지 진열장 초기 렌더링
+  renderBadgeGrid();
+
+  // 대화 전송 이벤트 바인딩
   chatForm.addEventListener('submit', handleSendMessage);
+  
+  // 🎵 배경 음악 및 앰비언트 이벤트 바인딩
+  btnPlayMusic.addEventListener('click', toggleMusicPlay);
+  btnAmbientSound.addEventListener('click', toggleRainSound);
+  sliderVolume.addEventListener('input', handleVolumeChange);
+  
+  // 오디오 기본 볼륨 설정
+  audioMusic.volume = sliderVolume.value / 100;
+  audioRain.volume = sliderVolume.value / 100;
+
+  // 🎙️ 음성 인식 STT 버튼
+  btnSttMic.addEventListener('click', toggleVoiceRecognition);
+
+  // 🔊 TTS 토글 버튼
+  btnToggleTts.addEventListener('click', () => {
+    isTtsEnabled = !isTtsEnabled;
+    btnToggleTts.classList.toggle('enabled', isTtsEnabled);
+    if (!isTtsEnabled) {
+      window.speechSynthesis.cancel();
+    }
+  });
+  
+  // TTS 초기 활성 설정
+  btnToggleTts.classList.toggle('enabled', isTtsEnabled);
+  
+  // 🏛️ 문학 살롱 관련 토글 및 버튼 바인딩
+  document.querySelectorAll('.btn-topic').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      setSalonTopic(e.currentTarget.dataset.topic);
+    });
+  });
+  
+  document.getElementById('btn-start-debate').addEventListener('click', startDebateSimulation);
+  
+  // 살롱 닫기 시 타이머 정리
+  document.getElementById('btn-close-salon').addEventListener('click', () => {
+    if (debateTimer) clearInterval(debateTimer);
+  });
 }
 
 // 문서 로드 완료 시 초기화 실행
